@@ -1,0 +1,84 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin=""/>
+		
+        <!-- Make sure you put this AFTER Leaflet's CSS -->
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+	</head>
+	
+	<body>
+		<div class='wrapper'>
+			<div id="mapid" class='panel'></div>
+			<div class='panel'><h2>Iglesias</h2><div id='total'>
+				<table>
+					<thead>
+						<tr>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						{% for name in names %}
+						<tr>
+							<td>{{name}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div></div>
+			<div id="panel-pastores" class='panel'><h2>Pastores</h2><div id='pastores'>
+				<table>
+					<thead>
+						<tr>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						{% for pastor in pastores %}
+						<tr>
+							<td>{{pastor}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div></div>
+			<div class='panel'><h2>Provincia</h2><div id='countries'>
+				<table>
+					<thead>
+						<tr>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						{% for provincia in provincias %}
+						<tr>
+							<td>{{provincia}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div></div>
+		</div>
+		<script>
+			const tilesProvider = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+			//mapa
+			let myMap = L.map('mapid').setView([9.106545, -79.496611], 9);
+
+			L.tileLayer(tilesProvider, {
+				maxZoom: 18
+
+			}).addTo(myMap);
+			var latitud = ['{{latitud[1]}}']
+			var longitud = ['{{longitud[1]}}']
+			let marker = L.marker([9.090700,longitud]).addTo(myMap)
+		</script>
+		<script type="text/javascript" src="{{url_for('static',filename='js/map.js')}}"></script>
+		<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"/>
+
+	</body>
+</html>
+
